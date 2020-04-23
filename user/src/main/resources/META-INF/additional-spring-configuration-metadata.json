@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "command.default.execution.isolation.thread.timeoutInMilliseconds",
+      "type": "java.lang.String",
+      "description": "Description for command.default.execution.isolation.thread.timeoutInMilliseconds."
+  }
+] }

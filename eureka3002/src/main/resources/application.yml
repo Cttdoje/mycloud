@@ -1,0 +1,23 @@
+server:
+  port: 3002
+
+eureka:
+  server:
+    enable-self-preservation: false
+    eviction-interval-timer-in-ms: 4000
+  instance:
+    hostname: eureka3002.com
+  client:
+    #register-with-eureka: false
+    #fetch-registry: false
+    service-url:
+      defaultZone: http://eureka3000.com:3000/eureka,http://eureka3001.com:3001/eureka
+spring:
+  application:
+    name: eureka
+#  security:
+#    basic:
+#      enabled: true
+#    user:
+#      name: user
+#      password: 123qwe
