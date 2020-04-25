@@ -3,6 +3,9 @@ server:
 spring:
   application:
     name: server-user
+  cloud:
+    config:
+      enabled: true
 eureka:
   client:
     service-url:
