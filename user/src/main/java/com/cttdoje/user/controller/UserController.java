@@ -25,8 +25,8 @@ public class UserController {
     @Autowired
     PowerFeignClient powerFeignClient;
 
-    @Value("${profile}")
-    private String profile;
+    /*@Value("${profile}")
+    private String profile;*/
 
 
     @RequestMapping("/getFeignPower")
@@ -66,8 +66,8 @@ public class UserController {
         return "helloWord";
     }
 
-    @RequestMapping("/profile")
+    /*@RequestMapping("/profile")
     public String getProfile(){
         return this.profile;
-    }
+    }*/
 }

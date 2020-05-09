@@ -6,6 +6,12 @@ spring:
   cloud:
     config:
       enabled: true
+  redis:
+    database: 0
+    host: 152.136.141.90
+    port: 6379
+    password: 123qwe
+    timeout: 2000
 eureka:
   client:
     service-url:
