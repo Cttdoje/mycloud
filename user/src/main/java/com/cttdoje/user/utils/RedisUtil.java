@@ -52,4 +52,52 @@ public class RedisUtil {
         }
     }
 
+    /**
+     * 获取列表长度
+     *
+     * @param key
+     * @return
+     */
+    public long getListLen(String key) {
+        long size = -1;
+        try {
+            size = redisTemplate.opsForList().size(key);
+        } catch (Exception e) {
+            //todo 处理
+        }
+        return size;
+    }
+
+    public long listLeftPush(String key, Object value) {
+        return redisTemplate.opsForList().leftPush(key, value);
+    }
+
+    public Object listRightPop(String key) {
+        return redisTemplate.opsForList().rightPop(key);
+    }
+
+    /**
+     * 获取列表中指定位置元素
+     *
+     * @param key
+     * @param index
+     * @return
+     */
+    public Object getListObjectByIndex(String key, long index) {
+        return redisTemplate.opsForList().index(key, index);
+    }
+
+    public boolean lTrim(String key, long start, long end) {
+        try {
+            redisTemplate.opsForList().trim(key, start, end);
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            return false;
+        }
+        return true;
+    }
+
+    public void sortObject(String key){
+    }
+
 }
