@@ -6,7 +6,7 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://eureka3000.com:3000/eureka/,http://eureka3001.com:3001/eureka/,http://eureka3002.com:3002/eureka/  #会往其中随机注册一台,注册一台成功即可
+      defaultZone: http://39.99.138.33:3000/eureka/  #会往其中随机注册一台,注册一台成功即可
   instance:
     instance-id: order-1 #此实例注册到eureka服务端的唯一的实例ID
     prefer-ip-address: true  #是否显示IP

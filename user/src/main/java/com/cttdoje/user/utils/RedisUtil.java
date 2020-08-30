@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.concurrent.TimeUnit;
 
 @Component
@@ -11,6 +12,17 @@ public class RedisUtil {
 
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
+
+    private static RedisUtil redisUtil;
+
+    @PostConstruct
+    public void init() {
+        redisUtil = this;
+        redisUtil.redisTemplate = this.redisTemplate;
+    }
+
+    private RedisUtil() {
+    }
 
     /**
      * 判断key是否存在
@@ -39,14 +51,31 @@ public class RedisUtil {
      * @param timeOut
      * @return
      */
-    public boolean set(String key, Object value, long timeOut) {
+    public static boolean set(String key, Object value, long timeOut) {
         try {
             if (timeOut > 0) {
-                redisTemplate.opsForValue().set(key, value, timeOut, TimeUnit.SECONDS);
+                return redisUtil.redisTemplate.opsForValue().setIfAbsent(key, value, timeOut, TimeUnit.SECONDS);
             } else {
-                redisTemplate.opsForValue().set(key, value);
+                return redisUtil.redisTemplate.opsForValue().setIfAbsent(key, value);
             }
-            return true;
+
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public static Object get(String key) {
+        try {
+            return redisUtil.redisTemplate.opsForValue().get(key);
+        } catch (Exception e) {
+            System.out.println("获取异常...");
+            return null;
+        }
+    }
+
+    public static boolean remove(String key) {
+        try {
+            return redisUtil.redisTemplate.delete(key);
         } catch (Exception e) {
             return false;
         }
@@ -97,7 +126,7 @@ public class RedisUtil {
         return true;
     }
 
-    public void sortObject(String key){
+    public void sortObject(String key) {
     }
 
 }

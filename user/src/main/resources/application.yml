@@ -12,6 +12,32 @@ spring:
     port: 6379
     password: 123qwe
     timeout: 2000
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  shardingsphere:
+    datasource:
+      master0: # 主库连接信息
+        driver-class-name: com.mysql.jdbc.Driver
+        jdbc-url: jdbc:mysql://127.0.0.1:3306/app?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&autoRec
+        password: 123qwe
+        type: com.zaxxer.hikari.HikariDataSource
+        username: root
+      names: master0
+    sharding:
+      tables:
+        tbl_phone_attr: #表名
+          actual-data-nodes: master0.tbl_phone_attr_$->{0..1} #实际表名 table_name_0 至 table_name_127
+          #key-generator: #主键生成策略
+            #column: id
+            #type: UUID
+          table-strategy: #分表规则
+            inline:
+              algorithm-expression: tbl_phone_attr_$->{prefix % 2} # 分表规则为customer_id字段取模customer_id %128
+              sharding-column: prefix #用于分表的键
+  main:
+    allow-bean-definition-overriding: true
 eureka:
   client:
     service-url:
