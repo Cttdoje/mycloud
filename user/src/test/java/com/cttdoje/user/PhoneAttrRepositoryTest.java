@@ -27,7 +27,7 @@ public class PhoneAttrRepositoryTest {
     private PhoneAttrRepository phoneAttrRepository;
 
     @Test
-    public void test1(){
+    public void test1() {
         PhoneAttrEntity phoneAttrEntity = new PhoneAttrEntity();
         phoneAttrEntity.setPrefix(154);
         phoneAttrEntity.setCity("福州22");
@@ -83,7 +83,7 @@ public class PhoneAttrRepositoryTest {
 
 
     @Test
-    public void insert(){
+    public void insert() {
         PhoneAttrEntity phoneAttrEntity = new PhoneAttrEntity();
         phoneAttrEntity.setPrefix(154);
         phoneAttrEntity.setCity("福州22");
@@ -92,32 +92,39 @@ public class PhoneAttrRepositoryTest {
     }
 
     @Test
-    public void query(){
+    public void query() {
         List<PhoneAttrEntity> list = phoneAttrRepository.findAll();
-        System.out.println(JSONObject.toJSONString(list,true));
+        System.out.println(JSONObject.toJSONString(list, true));
     }
 
     @Test
-    public void update(){
+    public void update() {
         // System.out.println(phoneAttrRepository.count());
-        List list = phoneAttrRepository.findByProvinceAndPrefix("福建",155);
-        System.out.println(JSONObject.toJSONString(list,true));
+        List list = phoneAttrRepository.findByProvinceAndPrefix("福建", 155);
+        System.out.println(JSONObject.toJSONString(list, true));
 
-        list = phoneAttrRepository.getPhoneAttrEntity("联通",154);
-        System.out.println(JSONObject.toJSONString(list,true));
+        list = phoneAttrRepository.getPhoneAttrEntity("联通", 154);
+        System.out.println(JSONObject.toJSONString(list, true));
+    }
+
+    @Test
+    public void queryPhoneAttr() {
+        PhoneAttrEntity entity = phoneAttrRepository.findPhoneAttrEntityByPrefixAndProvince(155, "福建");
+        System.out.println(JSONObject.toJSONString(entity));
     }
 
     public static void main(String[] args) {
-        Map<Key,Integer> map = new HashMap<>();
-        Key key  = new Key("a");
-        map.put(key,1);
+        Map<Key, Integer> map = new HashMap<>();
+        Key key = new Key("a");
+        map.put(key, 1);
         key.setA("b");
         System.out.println(map.get(key));
     }
 
-    static class Key{
+    static class Key {
         private String a;
-        public Key(String a){
+
+        public Key(String a) {
             this.a = a;
         }
 

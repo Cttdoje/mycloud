@@ -2,6 +2,7 @@ package com.cttdoje.user.utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -11,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 public class RedisUtil {
 
     @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
+    private RedisTemplate<String,String> redisTemplate;
 
     private static RedisUtil redisUtil;
 
@@ -54,9 +55,9 @@ public class RedisUtil {
     public static boolean set(String key, Object value, long timeOut) {
         try {
             if (timeOut > 0) {
-                return redisUtil.redisTemplate.opsForValue().setIfAbsent(key, value, timeOut, TimeUnit.SECONDS);
+                return redisUtil.redisTemplate.opsForValue().setIfAbsent(key, String.valueOf(value), timeOut, TimeUnit.SECONDS);
             } else {
-                return redisUtil.redisTemplate.opsForValue().setIfAbsent(key, value);
+                return redisUtil.redisTemplate.opsForValue().setIfAbsent(key, String.valueOf(value));
             }
 
         } catch (Exception e) {
@@ -98,7 +99,7 @@ public class RedisUtil {
     }
 
     public long listLeftPush(String key, Object value) {
-        return redisTemplate.opsForList().leftPush(key, value);
+        return redisTemplate.opsForList().leftPush(key, (String) value);
     }
 
     public Object listRightPop(String key) {

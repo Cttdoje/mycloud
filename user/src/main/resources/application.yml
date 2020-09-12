@@ -8,14 +8,15 @@ spring:
       enabled: true
   redis:
     database: 0
-    host: 152.136.141.90
+    host: 127.0.0.1
     port: 6379
-    password: 123qwe
     timeout: 2000
+  #jpa设置
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
+  # 分库分表组件
   shardingsphere:
     datasource:
       master0: # 主库连接信息
