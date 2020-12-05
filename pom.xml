@@ -10,9 +10,19 @@
     </parent>
     <groupId>com.cttdoje</groupId>
     <artifactId>mycloud</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>mycloud</name>
-    <description>Demo project for Spring Boot</description>
+    <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>config</module>
+        <module>eureka</module>
+        <module>eureka3001</module>
+        <module>eureka3002</module>
+        <module>order</module>
+        <module>order1</module>
+        <module>power</module>
+        <module>power1</module>
+        <module>user</module>
+    </modules>
+    <packaging>pom</packaging>
 
     <properties>
         <java.version>1.8</java.version>
